@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ventas - UJCV BOOKS</title>
+    <style>
+        body { background-color: #121212; color: #e0e0e0; font-family: sans-serif; padding: 40px; }
+        h1 { color: #780000; border-bottom: 2px solid #780000; padding-bottom: 10px; }
+        .nav-links { margin-bottom: 20px; }
+        .nav-links a { color: #ff4d4d; text-decoration: none; margin-right: 15px; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; background: #1e1e1e; margin-top: 10px; }
+        th { background: #333; color: #780000; padding: 15px; text-align: center; }
+        td { padding: 12px; border-bottom: 1px solid #333; text-align: center; }
+        tr:hover { background: #252525; }
+        .price { color: #4CAF50; font-weight: bold; }
+        .btn-eliminar { color: #ff4d4d; text-decoration: none; font-size: 0.9em; }
+        .btn-eliminar:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1> Registro de Libros comprados</h1>
+    
+    <div class="nav-links">
+        <a href="/ventas/agregar"> Nueva Venta</a>
+        <a href="/" style="color: #bbb;"> Menú Principal</a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Lector</th>
+                <th>Libro Adquirido</th>
+                <th>Precio</th>
+                <th>Total Pago</th>
+                <th>Acciones</th> </tr>
+        </thead>
+        <tbody>
+            {% for venta in lista_ventas %}
+            <tr>
+                <td>{{ venta.id_venta }}</td>
+                <td>{{ venta.lector }}</td>
+                <td><i>{{ venta.libro }}</i></td>
+                <td>L. {{ venta.precio }}</td>
+                <td class="price">L. {{ venta.total }}</td>
+                <td>
+                    <a href="/ventas/eliminar/{{ venta.id_venta }}" 
+                       onclick="return confirm('¿Seguro que quieres borrar este registro?')" 
+                       class="btn-eliminar"> Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
