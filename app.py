@@ -17,14 +17,23 @@ def index():
 
 @app.route('/inventario')
 def inventario():
+    # 1. Atrapamos lo que el usuario escribió en el input "buscar"
+    termino = request.args.get('buscar', '')
+    
     cur = conn.cursor(dictionary=True)
-    cur.execute("SELECT * FROM productos")
+    
+    if termino:
+        # 2. Si hay búsqueda, usamos "LIKE" para buscar nombres que se parezcan
+        # El % permite buscar cualquier coincidencia antes o después
+        sql = "SELECT * FROM productos WHERE nombre LIKE %s OR descripcion LIKE %s"
+        cur.execute(sql, (f"%{termino}%", f"%{termino}%"))
+    else:
+        # 3. Si no hay búsqueda, traemos todo como antes
+        cur.execute("SELECT * FROM productos")
+    
     mis_libros = cur.fetchall()
-    
-    # ESTO ES CLAVE: Mira tu terminal negra después de guardar
-    print("CONTENIDO DE LA TABLA:", mis_libros) 
-    
     cur.close()
+    
     return render_template('Inventario/index.html', libros=mis_libros)
 
 # --- MÓDULO VENTAS ---
