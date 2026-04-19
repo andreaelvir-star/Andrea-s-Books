@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Registro de Libros Comprados</h1>
+        <a href="{{ url_for('ventas.agregar_venta') }}" class="btn btn-sm btn-success shadow-sm">
+            <i class="fas fa-shopping-cart fa-sm text-white-50"></i> Nueva Venta
+        </a>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-dark">
+            <h6 class="m-0 font-weight-bold text-white">Historial de Transacciones</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" width="100%" cellspacing="0">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Lector</th>
+                            <th>Libro Adquirido</th>
+                            <th>Precio Unitario</th>
+                            <th>Total Pago</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for venta in lista_ventas %}
+                        <tr>
+                            <td>{{ venta.id_venta }}</td>
+                            <td class="font-weight-bold">{{ venta.lector }}</td>
+                            <td><i class="text-info">{{ venta.libro }}</i></td>
+                            <td>L. {{ venta.precio }}</td>
+                            <td class="text-success font-weight-bold">L. {{ venta.total }}</td>
+                            <td>
+                                <a href="{{ url_for('ventas.eliminar', id=venta.id_venta) }}" 
+                                   onclick="return confirm('¿Seguro que quieres borrar este registro?')" 
+                                   class="btn btn-sm btn-outline-danger">
+                                    <i class="fas fa-trash-alt"></i> Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center py-4">No hay ventas registradas aún.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

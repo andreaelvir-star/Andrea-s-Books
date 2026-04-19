@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andrea's Books | Sistema</title>
+    <link href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-book-reader"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Andrea's Books</div>
+            </a>
+            
+            <hr class="sidebar-divider my-0">
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Inicio</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('ventas.index') }}">
+                    <i class="fas fa-fw fa-cash-register"></i>
+                    <span>Ventas</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('inventario.index') }}">
+                    <i class="fas fa-fw fa-book"></i>
+                    <span>Inventario / Biblioteca</span>
+                </a>
+            </li>
+
+            <hr class="sidebar-divider d-none d-md-block">
+        </ul>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
+
+                <div class="container-fluid">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
