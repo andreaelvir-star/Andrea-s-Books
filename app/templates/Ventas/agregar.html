@@ -2,66 +2,44 @@
 
 {% block content %}
 <div class="container-fluid">
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Finalizar Venta (Book Purchase)</h1>
-    </div>
+    <h1 class="h3 mb-4 text-gray-800">Finalizar Venta</h1>
 
     <div class="row justify-content-center">
-        <div class="col-lg-5">
-            <div class="card shadow mb-4 border-left-success">
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
                 <div class="card-header py-3 bg-success">
                     <h6 class="m-0 font-weight-bold text-white">Detalles de la Transacción</h6>
                 </div>
                 <div class="card-body">
                     <form action="{{ url_for('ventas.guardar_venta') }}" method="POST">
                         <div class="form-group">
-                            <label class="text-xs font-weight-bold text-uppercase">Nombre del Lector:</label>
-                            <input type="text" name="txtLector" class="form-control" placeholder="Ej. Juan Pérez" required autofocus>
+                            <label>NOMBRE DEL LECTOR:</label>
+                            <input type="text" name="txtLector" class="form-control" required>
                         </div>
 
                         <div class="form-group">
-                            <label class="text-xs font-weight-bold text-uppercase">Título del Libro:</label>
-                            <input type="text" name="txtLibro" class="form-control" value="{{ request.args.get('libro', '') }}" readonly required>
+                            <label>TÍTULO DEL LIBRO:</label>
+                            <input type="text" name="txtLibro" class="form-control" value="{{ titulo_libro }}" readonly>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="text-xs font-weight-bold text-uppercase">Precio Unitario (L.):</label>
-                                    <input type="number" step="0.01" name="txtPrecio" id="precio" class="form-control"
-                                           value="{{ request.args.get('precio', '') }}" 
-                                           oninput="document.getElementById('total').value = this.value" required>
-                                </div>
+                                <label>PRECIO UNITARIO (L.):</label>
+                                <input type="text" name="txtPrecio" class="form-control" value="{{ precio_libro }}" readonly>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="text-xs font-weight-bold text-uppercase">Total (L.):</label>
-                                    <input type="number" step="0.01" name="txtTotal" id="total" class="form-control bg-light text-success font-weight-bold" 
-                                           value="{{ request.args.get('precio', '') }}" readonly>
-                                </div>
+                                <label>TOTAL (L.):</label>
+                                <input type="text" name="txtTotal" class="form-control" value="{{ precio_libro }}" required>
                             </div>
                         </div>
 
                         <hr>
-                        <button type="submit" class="btn btn-success btn-block shadow-sm">
-                            <i class="fas fa-check-circle"></i> Sellar Transacción
-                        </button>
-                        <a href="{{ url_for('ventas.index') }}" class="btn btn-light btn-block btn-sm mt-2">
-                            Cancelar y Volver
-                        </a>
+                        <button type="submit" class="btn btn-success btn-block">Confirmar Venta</button>
+                        <a href="{{ url_for('inventario.index') }}" class="btn btn-secondary btn-block">Regresar</a>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    window.onload = function() {
-        var p = document.getElementById('precio').value;
-        if(p) {
-            document.getElementById('total').value = p;
-        }
-    };
-</script>
 {% endblock %}

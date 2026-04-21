@@ -24,11 +24,12 @@ def agregar_libro():
 
 @inventario_bp.route('/guardar', methods=['POST'])
 def guardar_libro():
-    _codigo = request.form['txtCodigo']
-    _nombre = request.form['txtNombre']
-    _desc = request.form['txtDescripcion']
-    _precio = request.form['txtPrecio']
-    _stock = request.form['txtStock']
+    # Usar .get('') evita el error de la pantalla blanca si un campo falta
+    _codigo = request.form.get('txtCodigo', '')
+    _nombre = request.form.get('txtNombre', '')
+    _desc = request.form.get('txtDescripcion', '')
+    _precio = request.form.get('txtPrecio', '0')
+    _stock = request.form.get('txtStock', '0')
 
     cur = db_connection.cursor()
     sql = "INSERT INTO productos (codigo, nombre, descripcion, precio, stock) VALUES (%s, %s, %s, %s, %s)"
@@ -37,6 +38,7 @@ def guardar_libro():
     cur.close()
     return redirect(url_for('inventario.index'))
 
+# --- ESTO ES LO QUE TE FALTABA PARA QUITAR EL ERROR ---
 @inventario_bp.route('/biblioteca')
 def biblioteca():
     cur = db_connection.cursor(dictionary=True)
